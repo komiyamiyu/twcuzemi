@@ -1,0 +1,23 @@
+<!-- list.html -->
+
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class='container'>
+    <a href="{% url 'export_to_excel' %}" class="btn btn-success">エクセルにエクスポート</a>
+    {% for item in object_list %}
+    <div class="card">
+        <h5 class="card-header">{{ item.class_name }}</h5>
+        <div class="card-body">
+            <h5 class="card-title">{{ item.date }}</h5>
+            <h6 class="card-title">{{ item.student_id }}</h6>
+            <p class="card-text">{{ item.status }}</p>
+            <a href="{% url 'detail' item.pk %}" class="btn btn-primary">詳細へ</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,15 +1,23 @@
-<!-- list.html -->
-
 {% extends 'base.html' %}
 
 {% block header %}
+    <!-- ログアウトボタンをヘッダーに追加 -->
+    <div class="d-flex justify-content-end mt-3">
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">ログアウト</button>
+        </form>
+    </div>
 {% endblock header %}
 
 {% block content %}
 <div class='container'>
-    <a href="{% url 'export_to_excel' %}" class="btn btn-success">エクセルにエクスポート</a>
+    <!-- エクセルエクスポートボタン -->
+    <a href="{% url 'export_to_excel' %}" class="btn btn-success mt-3 mb-3">エクセルにエクスポート</a>
+
+    <!-- 出席情報のリスト -->
     {% for item in object_list %}
-    <div class="card">
+    <div class="card mt-3">
         <h5 class="card-header">{{ item.class_name }}</h5>
         <div class="card-body">
             <h5 class="card-title">{{ item.date }}</h5>
@@ -18,6 +26,8 @@
             <a href="{% url 'detail' item.pk %}" class="btn btn-primary">詳細へ</a>
         </div>
     </div>
+    {% empty %}
+    <p>出席データがありません。</p>
     {% endfor %}
 </div>
 {% endblock content %}
